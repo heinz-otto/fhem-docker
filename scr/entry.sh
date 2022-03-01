@@ -4,8 +4,10 @@
 ### Functions to start FHEM ###
 
 function StartFHEM {
-	LOGFILE=/opt/fhem/log/system/fhem-%Y-%m-%d.log
-	PIDFILE=/opt/fhem/log/system/fhem.pid
+#	LOGFILE=/opt/fhem/log/system/fhem-%Y-%m-%d.log
+#	PIDFILE=/opt/fhem/log/system/fhem.pid
+	LOGFILE=/opt/fhem/log/fhem-%Y-%m.log
+	PIDFILE=/opt/fhem/log/fhem.pid
 	SLEEPINTERVAL=0.5
 	TIMEOUT="${TIMEOUT:-15}"
 	CONFIGTYPE=${CONFIGTYPE:-"fhem.cfg"}
@@ -57,21 +59,6 @@ function StartFHEM {
 	}
 
 	trap "StopFHEM" 0
-	
-	echo "Resetting 868MHz extension..."    
-    #if test ! -d /sys/class/gpio/gpio17; then sudo echo 17 > /sys/class/gpio/export; fi
-    #if test ! -d /sys/class/gpio/gpio18; then sudo echo 18 > /sys/class/gpio/export; fi
-    #sudo echo out > /sys/class/gpio/gpio17/direction
-    #sudo echo out > /sys/class/gpio/gpio18/direction
-    #sudo echo 1 > /sys/class/gpio/gpio18/value
-    #sudo echo 0 > /sys/class/gpio/gpio17/value
-    #sleep 1
-    #sudo echo 1 > /sys/class/gpio/gpio17/value
-    #sleep 1
-	
-	if test ! -d /sys/class/gpio/gpio17; then sudo echo 17 > /sys/class/gpio/export; fi
-sudo echo out > /sys/class/gpio/gpio17/direction
-sudo echo 1 > /sys/class/gpio/gpio17/value
 	
 	cd /opt/fhem
 	perl fhem.pl "$CONFIGTYPE"
