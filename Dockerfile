@@ -39,32 +39,28 @@ RUN apk add --no-cache --update \
     subversion
 
 ## Cleaning up APK
-RUN \
-    rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
+RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 
 ## Customizing console
-RUN \
-    echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc
+RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc
 
 ## Setting timezone
-RUN \
-    cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
-    echo "Europe/Berlin" > /etc/timezone
+RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
+    && echo "Europe/Berlin" > /etc/timezone
 
-# Installing backup script for local backup
-
-#COPY ./core/backup.sh /opt/fhem/backup.sh
-
-#RUN chmod +x /opt/fhem/backup.sh
-# RUN chmod +x /opt/fhem/start-fhem.sh
+####################### add user fhem
 RUN adduser fhem -h /opt/fhem -D
 RUN addgroup fhem dialout
 RUN chown -R fhem: /opt/fhem
+
+####################### Copy some Files
+COPY src/*.sh /
+RUN chmod +x /*.sh
 
 ## Starting container
 
 WORKDIR "/opt/fhem"
 
-EXPOSE 8083 7072
+EXPOSE 8083
 
-ENTRYPOINT ["/opt/fhem/start-fhem.sh"]
+ENTRYPOINT ["/entry.sh"]
