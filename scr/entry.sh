@@ -61,13 +61,27 @@ function StartFHEM {
 	trap "StopFHEM" 0
 	
 	cd /opt/fhem
+	############################
+	  if [ ! -e /opt/fhem/fhem.pl ]
+             then
+                svn checkout https://svn.fhem.de/fhem/trunk/fhem .
+          fi
+        chown -R fhem: .
+	############################
 	perl fhem.pl "$CONFIGTYPE"
 	
 	until $FOUND; do										## Wait for FHEM to start up
 		sleep $SLEEPINTERVAL
         PrintNewLines "Server started"
 	done
-	
+	############################
+	fhemport='8083'
+        if [ ! -e ./log/fhem.pid ]
+            then
+               echo 'attr global pidfilename ./log/fhem.pid'|/fhemcl.sh $fhemport
+               echo '{qx(echo $$ > ./log/fhem.pid)}'|/fhemcl.sh $fhemport
+        fi
+ 	############################
 	PrintNewLines
 	
 
