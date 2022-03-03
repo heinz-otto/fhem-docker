@@ -38,24 +38,26 @@ function StartFHEM {
 
 	## Docker stop sinal handler
 	function StopFHEM {
-		echo
-		echo 'SIGTERM signal received, sending "shutdown" command to FHEM!'
-		echo
-		PID=$(<"$PIDFILE")
-		perl /opt/fhem/fhem.pl 7072 shutdown
-		echo 'Waiting for FHEM process to terminate before stopping container:'
+	    echo
+	    echo 'SIGTERM signal received, sending "shutdown" command to FHEM!'
+	    echo
+            if PID=$(<"$PIDFILE")
+            then 
+                echo 'shutdown'|/fhemcl.sh $fhemport
+                echo 'Waiting for FHEM process to terminate before stopping container:'
 		echo
 		until $FOUND; do					## Wait for FHEM to shutdown
 			sleep $SLEEPINTERVAL
-            PrintNewLines "Server shutdown"
+                        PrintNewLines "Server shutdown"
 		done
 		while ( kill -0 "$PID" 2> /dev/null ); do		## Wait for FHEM to end process
 			sleep $SLEEPINTERVAL
 		done
-		PrintNewLines
-		echo
-		echo 'FHEM process terminated, stopping container. Bye!'
-		exit 0
+	     fi
+	     PrintNewLines
+	     echo
+	     echo 'FHEM process terminated, stopping container. Bye!'
+	     exit 0
 	}
 
 	trap "StopFHEM" 0
