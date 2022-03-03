@@ -54,7 +54,7 @@ RUN addgroup fhem dialout
 RUN chown -R fhem: /opt/fhem
 
 ####################### Copy some Files
-COPY src/*.sh /
+COPY scr/*.sh /
 RUN chmod +x /*.sh
 
 ## Starting container
