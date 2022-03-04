@@ -11,15 +11,17 @@ ENV \
     TERM=xterm\
     TZ=Europe/Berlin
 
+# absolute minimum
 RUN apk add --no-cache --update \
     tzdata \
     bash \
-    sudo \
     sed \
     ca-certificates \
     wget \
-    nano \
     perl \
+    perl-device-serialport
+# more packages
+RUN apk add --no-cache --update \
     perl-socket \
     perl-switch \
     perl-sys-hostname-long \
@@ -31,7 +33,6 @@ RUN apk add --no-cache --update \
     perl-socket \
     perl-crypt-rijndael \
     perl-lwp-protocol-https \
-    perl-device-serialport \
     perl-net-telnet \
     perl-dbi \
     perl-dbd-mysql \
@@ -48,14 +49,12 @@ RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc
 RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
     && echo "Europe/Berlin" > /etc/timezone
 
-####################### add user fhem
-RUN adduser fhem -h /opt/fhem -D
-RUN addgroup fhem dialout
-RUN chown -R fhem: /opt/fhem
-
-####################### Copy some Files
-COPY scr/*.sh /
-RUN chmod +x /*.sh
+####################### add user fhem Copy some Files
+RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
+    cd / \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/scr/entry.sh \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh \
+    && chmod +x /*.sh
 
 ## Starting container
 
