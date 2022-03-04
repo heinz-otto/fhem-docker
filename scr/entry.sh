@@ -63,8 +63,9 @@ function StartFHEM {
 	
 	### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
 	  if [ ! -e /opt/fhem/fhem.pl ]; then
-	        # cd /opt/ ; wget -q http://fhem.de/fhem-6.1.tar.gz ; tar xvf fhem-6.1.tar.gz -C /opt/ ; mv fhem-6.1/* fhem/ ; rm /opt/fhem-6.1.tar.gz
-                svn checkout https://svn.fhem.de/fhem/trunk/fhem /opt/fhem
+                if ! svn checkout https://svn.fhem.de/fhem/trunk/fhem /opt/fhem ; then
+	           cd /opt/ ; wget -q http://fhem.de/fhem-6.1.tar.gz ; tar xvf fhem-6.1.tar.gz -C /opt/ ; mv fhem-6.1/* fhem/ ; rm /opt/fhem-6.1.tar.gz
+		fi
           fi
 
 	cd /opt/fhem
