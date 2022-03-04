@@ -62,13 +62,13 @@ function StartFHEM {
 	trap "StopFHEM" 0
 	
 	cd /opt/fhem
-	### if the /opt/fhem is empty load a new FHEM from svn
-	  if [ ! -e /opt/fhem/fhem.pl ]
-             then
+	### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
+	  if [ ! -e /opt/fhem/fhem.pl ]; then
+	        # wget http://fhem.de/fhem-6.1.tar.gz ; tar xvf fhem-6.1.tar.gz -C /opt/ ; mv fhem-6.1/ fhem/
                 svn checkout https://svn.fhem.de/fhem/trunk/fhem .
           fi
-        
-	chown -R fhem: .                                                # set proper rights
+
+        chown -R fhem: .                                                # set proper rights
 	
 	### start FHEM
 	perl fhem.pl "$CONFIGTYPE"
