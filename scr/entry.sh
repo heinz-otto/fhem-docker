@@ -28,11 +28,11 @@ function StartFHEM {
 	FOUND=false
 
 	function PrintNewLines {
-    	NEWLINES=$(wc -l < "$(date +"$LOGFILE")")
-    	(( OLDLINES <= NEWLINES )) && LINES=$(( NEWLINES - OLDLINES )) || LINES=$NEWLINES
-    	tail -n "$LINES" "$(date +"$LOGFILE")"
-    	test ! -z "$1" && grep -q "$1" <(tail -n "$LINES" "$(date +"$LOGFILE")") && FOUND=true || FOUND=false
-    	OLDLINES=$NEWLINES
+    	   NEWLINES=$(wc -l < "$(date +"$LOGFILE")")
+    	   (( OLDLINES <= NEWLINES )) && LINES=$(( NEWLINES - OLDLINES )) || LINES=$NEWLINES
+    	   tail -n "$LINES" "$(date +"$LOGFILE")"
+    	   test ! -z "$1" && grep -q "$1" <(tail -n "$LINES" "$(date +"$LOGFILE")") && FOUND=true || FOUND=false
+    	   OLDLINES=$NEWLINES
 	}
 
 	## Docker stop sinal handler
