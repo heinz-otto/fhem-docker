@@ -21,23 +21,23 @@ RUN apk add --no-cache --update \
     perl \
     perl-device-serialport
 # more packages
-RUN apk add --no-cache --update \
-    perl-socket \
-    perl-switch \
-    perl-sys-hostname-long \
-    perl-json \
-    perl-io-socket-ssl \
-    perl-crypt-openssl-rsa \
-    perl-crypt-openssl-dsa \
-    perl-xml-simple \
-    perl-socket \
-    perl-crypt-rijndael \
-    perl-lwp-protocol-https \
-    perl-net-telnet \
-    perl-dbi \
-    perl-dbd-mysql \
-    busybox-extras \
-    subversion
+# RUN apk add --no-cache --update \
+#    perl-socket \
+#    perl-switch \
+#    perl-sys-hostname-long \
+#    perl-json \
+#    perl-io-socket-ssl \
+#    perl-crypt-openssl-rsa \
+#    perl-crypt-openssl-dsa \
+#    perl-xml-simple \
+#    perl-socket \
+#    perl-crypt-rijndael \
+#    perl-lwp-protocol-https \
+#    perl-net-telnet \
+#    perl-dbi \
+#    perl-dbd-mysql \
+#    busybox-extras \
+#    subversion
 
 ## Cleaning up APK
 RUN rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
