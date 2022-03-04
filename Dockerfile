@@ -51,7 +51,7 @@ RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
 
 ####################### add user fhem Copy some Files
 RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
-    cd / \
+    && cd / \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/scr/entry.sh \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh \
     && chmod +x /*.sh
