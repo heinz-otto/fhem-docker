@@ -2,8 +2,6 @@
 ## Testing FHEM
 ## inspired from https://github.com/krannich/dkDockerFHEM/blob/master/fhem/Dockerfile
 ###########################################################
-ARG PACKAGE_SIZE=small
-
 FROM alpine:latest
 
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
@@ -12,7 +10,8 @@ ENV \
     TERM=xterm\
     TZ=Europe/Berlin
 
-# absolute minimum
+ARG PACKAGE_SIZE=small
+
 RUN apk add --no-cache --update \
     tzdata \
     bash \
