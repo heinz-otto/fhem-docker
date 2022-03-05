@@ -57,8 +57,10 @@ RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
 
 ## Starting container
 
-WORKDIR "/opt/fhem"
-
 EXPOSE 8083
 
+## HEALTHCHECK --interval=20s --timeout=10s --start-period=60s --retries=5 CMD /health-check.sh
+
+WORKDIR "/opt/fhem"
 ENTRYPOINT ["/entry.sh"]
+CMD [ "start" ]
