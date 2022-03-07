@@ -1,9 +1,7 @@
-#!/bin/sh
-#. /functions.sh
 #!/bin/bash
 ### original from here https://github.com/krannich/dkDockerFHEM/blob/master/fhem/core/start-fhem.sh 
 ###
-### Function to start FHEM ###
+### Functions to start FHEM ###
 
 function StartFHEM {
 	LOGFILE=/opt/fhem/log/fhem-%Y-%m.log
@@ -63,7 +61,15 @@ function StartFHEM {
 
 	trap "StopFHEM" 0
 	
-        chown -R fhem: /opt/fhem                                        # set proper rights
+	### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
+	  if [ ! -e /opt/fhem/fhem.pl ]; then
+                if ! svn checkout https://svn.fhem.de/fhem/trunk/fhem /opt/fhem ; then
+	           cd /opt/ ; wget -q http://fhem.de/fhem-6.1.tar.gz ; tar xvf fhem-6.1.tar.gz -C /opt/ ; mv fhem-6.1/* fhem/ ; rm /opt/fhem-6.1.tar.gz
+		fi
+          fi
+
+	cd /opt/fhem
+        chown -R fhem: .                                                # set proper rights
 	
 	### start FHEM
 	perl fhem.pl "$CONFIGTYPE"
@@ -110,31 +116,8 @@ function StartFHEM {
 	done
 }
 
-function InitFHEM {
-### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
-  if [ ! -e /opt/fhem/fhem.pl ]; then
-     if ! svn checkout https://svn.fhem.de/fhem/trunk/fhem /opt/fhem ; then
-           cd /opt/ ; wget -q http://fhem.de/fhem-6.1.tar.gz ; tar xvf fhem-6.1.tar.gz -C /opt/ ; mv fhem-6.1/* fhem/ ; rm /opt/fhem-6.1.tar.gz
-     fi
-  fi
-}
+### Start of Script ###
 
-function StartDemo {
-  perl fhem.pl fhem.cfg.demo
-}
 StartFHEM
-########
-if [ "$1" = 'init' ]; then
-    if [ ! -e /opt/fhem/fhem.pl ]; then
-      InitFHEM
-    fi
-fi
-if [ "$1" = 'start' ]; then
-    if [ "$2" = 'demo' ]; then
-       StartDemo
-    else
-       StartFHEM
-    fi
-else
-    exec "$@"
-fi
+
+#EOF
