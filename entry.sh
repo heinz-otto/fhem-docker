@@ -8,7 +8,7 @@ if [ "$1" = 'init' ]; then
 fi
 if [ "$1" = 'start' ]; then
     if [ "$2" = 'demo' ]; then
-       exec "perl fhem.pl fhem.cfg.demo"
+       StartDemo
     else
        StartFHEM
     fi
