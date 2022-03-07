@@ -1,4 +1,4 @@
-###########################################################
+y###########################################################
 ## Testing FHEM
 ## inspired from https://github.com/krannich/dkDockerFHEM/blob/master/fhem/Dockerfile
 ###########################################################
@@ -50,7 +50,7 @@ RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
 ####################### add user fhem Copy some Files
 RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
     && cd / \
-    && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/{*.sh} \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/{entry.sh,functions.sh} \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh \
     && chmod +x /*.sh
 
