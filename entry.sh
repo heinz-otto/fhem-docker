@@ -122,6 +122,7 @@ function InitFHEM {
 function StartDemo {
   perl fhem.pl fhem.cfg.demo
 }
+StartFHEM
 ########
 if [ "$1" = 'init' ]; then
     if [ ! -e /opt/fhem/fhem.pl ]; then
