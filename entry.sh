@@ -2,7 +2,7 @@
 . /functions.sh
 
 if [ "$1" = 'init' ]; then
-   InitFHEM "$@"
+   InitFHEM $@
    exit 0
 fi
 if [ "$1" = 'start' ]; then
