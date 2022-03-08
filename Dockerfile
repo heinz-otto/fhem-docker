@@ -1,5 +1,5 @@
 ###########################################################
-## Testing FHEM
+## Testing FHEM with a small as possible Alpine Linux
 ## inspired from https://github.com/krannich/dkDockerFHEM/blob/master/fhem/Dockerfile
 ###########################################################
 FROM alpine:latest
@@ -40,6 +40,7 @@ RUN apk add --no-cache --update \
      ; fi \
      && rm -rf /var/cache/apk/* /tmp/* /var/tmp/*
 
+### ToDo combine the following parts for better building
 ## Customizing console
 RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc
 
@@ -47,7 +48,7 @@ RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc
 RUN cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
     && echo "Europe/Berlin" > /etc/timezone
 
-####################### add user fhem Copy some Files
+## add user fhem, copy some files from github instead of using docker context
 RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
     && cd / \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/functions.sh \
@@ -55,7 +56,7 @@ RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh \
     && chmod +x /*.sh
 
-## Starting container
+## Starting container, EXPOSE is more Doku :-)
 
 EXPOSE 8083
 
@@ -63,4 +64,5 @@ EXPOSE 8083
 
 WORKDIR "/opt/fhem"
 ENTRYPOINT ["/entry.sh"]
+# start is default and can be overwritten per commandline
 CMD [ "start" ]
