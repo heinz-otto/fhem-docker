@@ -12,7 +12,11 @@ ENV \
 # ARG PACKAGE_SIZE=small
 
 RUN apt update && apt install -y \
+  apt-file \
+  libperl-prereqscanner-notquitelite-perl \
+  perl \
   subversion \
+  wget \
   && rm -rf /var/lib/apt/lists/*
 
 ### ToDo combine the following parts for better building
