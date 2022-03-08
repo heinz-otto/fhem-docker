@@ -1,6 +1,8 @@
 #!/bin/bash
+# load functions
 . /functions.sh
 
+# run internal cmd or execute the code from commandline 
 if [ "$1" = 'init' ]; then
    InitFHEM $@
    exit 0
