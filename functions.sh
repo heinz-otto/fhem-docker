@@ -40,7 +40,7 @@ function StartFHEM {
 	    echo
 	    echo 'SIGTERM signal received, sending "shutdown" command to FHEM!'
 	    echo
-            if PID=$(<"$PIDFILE") &>/dev/null
+            if PID=$(cat $PIDFILE 2>/dev/null)
             then 
                 echo 'shutdown'|/fhemcl.sh $FHEMPORT
                 echo 'Waiting for FHEM process to terminate before stopping container:'
@@ -112,16 +112,19 @@ function InitFHEM {
 ### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
 RELEASE_FILE=${RELEASE_FILE:-"fhem-6.1.tar.gz"}
   if [ "$3" = "clean" ] ; then
+     echo "clean path $(pwd)"
      rm -r *
   fi
   if [ ! -e /opt/fhem/fhem.pl ] || [ $3=force ] ; then
      if [ "$2" = "svn" ] ; then
+        echo "try to init path $(pwd) from svn"
         svn checkout https://svn.fhem.de/fhem/trunk/fhem .
      fi
      if [ "$2" = "tar" ] ; then
-           wget -q http://fhem.de/$RELEASE_FILE
-	   tar xvf $RELEASE_FILE --strip-components=1
-	   rm $RELEASE_FILE
+        echo "try to init path $(pwd) from $RELEASE_FILE"
+        wget -q http://fhem.de/$RELEASE_FILE
+        tar xvf $RELEASE_FILE --strip-components=1
+	rm $RELEASE_FILE
      fi
    else 
      echo "/opt/fhem not empty use init svn|tar force"
