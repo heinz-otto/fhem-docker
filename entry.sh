@@ -2,9 +2,8 @@
 . /functions.sh
 
 if [ "$1" = 'init' ]; then
-    if [ ! -e /opt/fhem/fhem.pl ]; then
-      InitFHEM
-    fi
+   InitFHEM
+   exit 0
 fi
 if [ "$1" = 'start' ]; then
     if [ "$2" = 'demo' ]; then
