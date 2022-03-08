@@ -9,7 +9,7 @@ ENV \
     TERM=xterm\
     TZ=Europe/Berlin
 
-# ARG PACKAGE_SIZE=small
+ARG PACKAGE_SIZE=small
 
 RUN apt update && apt install -y \
   apt-file \
@@ -18,6 +18,24 @@ RUN apt update && apt install -y \
   perl \
   subversion \
   wget \
+  && if [ "${PACKAGE_SIZE}" = "big" ]; then \
+    apt install -y \
+    libcpanel-json-xs-perl \
+    libcrypt-rijndael-perl \
+    libdevice-serialport-perl \
+    libfile-homedir-perl \
+    libhtml-treebuilder-xpath-perl \
+    libimage-librsvg-perl \
+    libio-socket-ssl-perl \
+    libjson-xs-perl \
+    libnet-telnet-perl \
+    libsoap-lite-perl \
+    libtext-iconv-perl \
+    libtimedate-perl \
+    libwww-perl \
+    libxml-simple-perl \
+    libxml-xpath-perl \
+  ; fi \
   && rm -rf /var/lib/apt/lists/*
 
 ### ToDo combine the following parts for better building
