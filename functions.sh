@@ -1,8 +1,8 @@
 #!/bin/bash
 ### original from here https://github.com/krannich/dkDockerFHEM/blob/master/fhem/core/start-fhem.sh 
 ###
-### Function to start FHEM ###
 
+### Function to start FHEM ###
 function StartFHEM {
 	LOGFILE=/opt/fhem/log/fhem-%Y-%m.log
 	PIDFILE=/opt/fhem/log/fhem.pid
@@ -108,9 +108,10 @@ function StartFHEM {
 	done
 }
 
+### Function init the workdir with a fresh FHEM version from svn or latest build version from fhem.de  ###
 function InitFHEM {
-### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
-RELEASE_FILE=${RELEASE_FILE:-"fhem-6.1.tar.gz"}
+  ### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
+  RELEASE_FILE=${RELEASE_FILE:-"fhem-6.1.tar.gz"}
   if [ "$3" = "clean" ] ; then
      echo "clean path $(pwd)"
      rm -r *
@@ -131,6 +132,7 @@ RELEASE_FILE=${RELEASE_FILE:-"fhem-6.1.tar.gz"}
   fi
 }
 
+### Start FHEM in demo mode  ###
 function StartDemo {
   perl fhem.pl fhem.cfg.demo
 }
