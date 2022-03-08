@@ -111,14 +111,14 @@ function StartFHEM {
 function InitFHEM {
 ### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
 RELEASE_FILE=${RELEASE_FILE:-"fhem-6.1.tar.gz"}
-  if [ $3=clean ] ; then
+  if [ "$3" = "clean" ] ; then
      rm -r *
   fi
   if [ ! -e /opt/fhem/fhem.pl ] || [ $3=force ] ; then
-     if [ $2=svn ] ; then
+     if [ "$2" = "svn" ] ; then
         svn checkout https://svn.fhem.de/fhem/trunk/fhem .
      fi
-     if [ $2=tar ] ; then
+     if [ "$2" = "tar" ] ; then
            wget -q http://fhem.de/$RELEASE_FILE
 	   tar xvf $RELEASE_FILE --strip-components=1
 	   rm $RELEASE_FILE
