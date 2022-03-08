@@ -26,7 +26,7 @@ RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc \
     && echo "Europe/Berlin" > /etc/timezone
 
 ## add user fhem, copy some files from github instead of using docker context
-RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
+RUN adduser --gecos "" --ingroup dialout --home /opt/fhem --no-create-home --shell /bin/false --disable-login fhem \
     && cd / \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/functions.sh \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/entry.sh \
