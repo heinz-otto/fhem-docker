@@ -1,0 +1,41 @@
+###########################################################
+## Testing FHEM with debian
+###########################################################
+FROM debian:latest
+
+LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
+
+ENV \
+    TERM=xterm\
+    TZ=Europe/Berlin
+
+# ARG PACKAGE_SIZE=small
+
+RUN apt update && apt install -y \
+  subversion \
+  && rm -rf /var/lib/apt/lists/*
+
+### ToDo combine the following parts for better building
+## Customizing console and setting Timezone
+RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc \
+    && cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
+    && echo "Europe/Berlin" > /etc/timezone
+
+## add user fhem, copy some files from github instead of using docker context
+RUN adduser -G dialout -h /opt/fhem -s /bin/false -D fhem \
+    && cd / \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/functions.sh \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/entry.sh \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh \
+    && chmod +x /*.sh
+
+## Starting container, EXPOSE is more Doku :-)
+
+EXPOSE 8083
+
+## HEALTHCHECK --interval=20s --timeout=10s --start-period=60s --retries=5 CMD /health-check.sh
+
+WORKDIR "/opt/fhem"
+ENTRYPOINT ["/entry.sh"]
+# start is default and can be overwritten per commandline
+CMD [ "start" ]
