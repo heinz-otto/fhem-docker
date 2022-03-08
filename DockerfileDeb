@@ -13,6 +13,7 @@ ENV \
 
 RUN apt update && apt install -y \
   apt-file \
+  libdevice-serialport-perl \
   libperl-prereqscanner-notquitelite-perl \
   perl \
   subversion \
