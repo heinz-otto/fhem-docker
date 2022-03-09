@@ -28,7 +28,6 @@ RUN apt update && apt install -y \
     libcrypt-rijndael-perl \
     libfile-homedir-perl \
     libhtml-treebuilder-xpath-perl \
-    libjson-xs-perl \
     libnet-telnet-perl \
     libsoap-lite-perl \
     libtext-iconv-perl \
