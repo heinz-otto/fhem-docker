@@ -11,7 +11,7 @@ ENV \
 
 ARG PACKAGE_SIZE=small
 
-RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt update && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+RUN apt update && apt install -y \
   apt-file \
   libcpanel-json-xs-perl \
   libdevice-serialport-perl \
