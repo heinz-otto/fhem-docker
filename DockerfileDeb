@@ -14,6 +14,7 @@ ARG PACKAGE_SIZE=small
 RUN apt update && apt install -y \
   apt-file \
   libdevice-serialport-perl \
+  libjson-perl \
   libperl-prereqscanner-notquitelite-perl \
   perl \
   subversion \
