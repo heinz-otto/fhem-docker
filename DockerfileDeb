@@ -13,7 +13,9 @@ ARG PACKAGE_SIZE=small
 
 RUN apt update && apt install -y \
   apt-file \
+  libcpanel-json-xs-perl \
   libdevice-serialport-perl \
+  libio-socket-ssl-perl \
   libjson-perl \
   libperl-prereqscanner-notquitelite-perl \
   perl \
@@ -21,13 +23,10 @@ RUN apt update && apt install -y \
   wget \
   && if [ "${PACKAGE_SIZE}" = "big" ]; then \
     apt install -y \
-    libcpanel-json-xs-perl \
     libcrypt-rijndael-perl \
-    libdevice-serialport-perl \
     libfile-homedir-perl \
     libhtml-treebuilder-xpath-perl \
     libimage-librsvg-perl \
-    libio-socket-ssl-perl \
     libjson-xs-perl \
     libnet-telnet-perl \
     libsoap-lite-perl \
@@ -36,6 +35,8 @@ RUN apt update && apt install -y \
     libwww-perl \
     libxml-simple-perl \
     libxml-xpath-perl \
+    mp3wrap \
+    sendemail \
   ; fi \
   && rm -rf /var/lib/apt/lists/*
 
