@@ -11,27 +11,27 @@ ENV \
 
 ARG PACKAGE_SIZE=small
 
-RUN apt update && apt install -y \
+RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt update && LC_ALL=C DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
   apt-file \
   libcpanel-json-xs-perl \
   libdevice-serialport-perl \
+  libimage-librsvg-perl \
   libio-socket-ssl-perl \
   libjson-perl \
   libperl-prereqscanner-notquitelite-perl \
+  libtimedate-perl \
   perl \
   subversion \
   wget \
   && if [ "${PACKAGE_SIZE}" = "big" ]; then \
-    apt install -y \
+    LC_ALL=C DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
     libcrypt-rijndael-perl \
     libfile-homedir-perl \
     libhtml-treebuilder-xpath-perl \
-    libimage-librsvg-perl \
     libjson-xs-perl \
     libnet-telnet-perl \
     libsoap-lite-perl \
     libtext-iconv-perl \
-    libtimedate-perl \
     libwww-perl \
     libxml-simple-perl \
     libxml-xpath-perl \
