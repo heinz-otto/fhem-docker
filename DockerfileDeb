@@ -5,11 +5,12 @@ FROM debian:latest
 
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 
+# locale setting see https://wiki.debian.org/Locale
 ENV \
     TERM=xterm \
     TZ=Europe/Berlin \
     LANG=de_DE.UTF-8 \
-    LANGUAGE=de_DE \
+    LANGUAGE=de:en \
     LC_ALL=de_DE.UTF-8
 
 ARG PACKAGE_SIZE=small
