@@ -33,7 +33,6 @@ RUN apt update && apt install -y \
   && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
   && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
   && locale-gen \
-  && update-locale LANG=de_DE.UTF-8 \
   && if [ "${PACKAGE_SIZE}" = "big" ]; then \
     apt install -y --no-install-recommends \
     libcrypt-rijndael-perl \
