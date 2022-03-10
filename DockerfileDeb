@@ -13,6 +13,9 @@ ARG PACKAGE_SIZE=small
 
 RUN apt update && apt install -y \
   apt-file \
+  apt-utils \
+  ca-certificates \
+  gnupg \
   libcpanel-json-xs-perl \
   libdevice-serialport-perl \
   libimage-librsvg-perl \
@@ -20,9 +23,13 @@ RUN apt update && apt install -y \
   libjson-perl \
   libperl-prereqscanner-notquitelite-perl \
   libtimedate-perl \
+  locales \
   perl \
   subversion \
   wget \
+  && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
+  && dpkg-reconfigure -f noninteractive locales \
+  && locale-gen \
   && if [ "${PACKAGE_SIZE}" = "big" ]; then \
     apt install -y --no-install-recommends \
     libcrypt-rijndael-perl \
