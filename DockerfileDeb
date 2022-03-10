@@ -6,8 +6,11 @@ FROM debian:latest
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 
 ENV \
-    TERM=xterm\
-    TZ=Europe/Berlin
+    TERM=xterm \
+    TZ=Europe/Berlin \
+    LANG=de_DE.UTF-8 \
+    LANGUAGE=de_DE \
+    LC_ALL=de_DE.UTF-8
 
 ARG PACKAGE_SIZE=small
 
