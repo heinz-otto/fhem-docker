@@ -1,6 +1,7 @@
 #!/bin/bash
 # load functions
 . /functions.sh
+export HOME=$(pwd)
 
 # run internal cmd or execute the code from commandline 
 if [ "$1" = 'init' ]; then
