@@ -8,10 +8,10 @@ LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 # locale setting see https://wiki.debian.org/Locale
 ENV \
     TERM=xterm \
-    TZ=Europe/Berlin \
-    LANG=de_DE.UTF-8 \
-    LANGUAGE=de:en \
-    LC_ALL=de_DE.UTF-8
+    TZ=Europe/Berlin 
+#    LANG=de_DE.UTF-8 \
+#    LANGUAGE=de:en \
+#    LC_ALL=de_DE.UTF-8
 
 ARG PACKAGE_SIZE=small
 
@@ -52,9 +52,9 @@ RUN apt update && apt install -y \
 
 ### ToDo combine the following parts for better building
 ## Customizing console and setting Timezone
-RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc \
-    && cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
-    && echo "Europe/Berlin" > /etc/timezone
+RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc 
+#    && cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
+#    && echo "Europe/Berlin" > /etc/timezone
 
 ## add user fhem, copy some files from github instead of using docker context
 RUN adduser --gecos "" --ingroup dialout --home /opt/fhem --no-create-home --shell /bin/false --disabled-login fhem \
