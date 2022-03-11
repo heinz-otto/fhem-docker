@@ -1,7 +1,12 @@
 #!/bin/bash
 # load functions
 . /functions.sh
+
+# set HOME ENV
 export HOME=$(pwd)
+
+# make serial Devices accessible by user fhem
+find /dev/ -name "tty[A|S|U]*" -exec chown fhem: {} \;
 
 # run internal cmd or execute the code from commandline 
 if [ "$1" = 'init' ]; then
