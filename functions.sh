@@ -89,7 +89,8 @@ function StartFHEM {
 			echo
 			echo "FHEM process terminated, waiting for $COUNTDOWN seconds before stopping container..."
 			while ( [ ! -f $PIDFILE ] || ! kill -0 "$(<"$PIDFILE")" &>/dev/null ) && (( COUNTDOWN > 0 )); do	## FHEM exited unexpectedly
-				echo "waiting - $COUNTDOWN"
+#				echo "waiting - $COUNTDOWN"
+                                printf "waiting - $COUNTDOWN \r"
 				(( COUNTDOWN-- ))
 				sleep 1
 			done
