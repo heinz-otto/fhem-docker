@@ -5,7 +5,8 @@
 # set HOME ENV
 export HOME=$(pwd)
 
-# make serial Devices accessible by user fhem
+# make serial Devices accessible by user fhem. 
+# I found this kind in official fhem-docker/src/entry.sh . I don't found this as recommandation on other sites
 find /dev/ -name "tty[A|S|U]*" -exec chown fhem: {} \;
 
 # run internal cmd or execute the code from commandline 
