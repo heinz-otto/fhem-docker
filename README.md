@@ -1,9 +1,13 @@
 # fhem-docker
 Test my own Dockerfile
 
-Some Scripts (entry.sh, functions.sh) will be loaded from this github during docker build, no context needed!
+Some Scripts (entry.sh, functions.sh) will be loaded from this github during docker build, no docker build context needed!
 
-This Version is from Alpine, very small, very basic.
+There are two Versions: 
+- Dockerfile is from Alpine:latest, very small, very basic.
+- DockerfileDeb is from Debian:latest, fit for my used FHEM Modules and for using serial connected Hardware (e.g. ttyAMA0)
+
+
 ## Usage
 - build your image
 - make a working folder e.g. /home/pi/docker/fhem
