@@ -2,8 +2,12 @@
 # load functions
 . /functions.sh
 
-# set HOME ENV
-export HOME=$(pwd)
+# set ENV
+export HOME="$(pwd)"
+export LANG="${LANG:-de_DE.UTF-8}" 
+export LANGUAGE="${LANGUAGE:-de:en}"
+export LC_ALL="${LC_ALL:-de_DE.UTF-8}"
+export TZ="${TZ:-Europe/Berlin}"
 
 # make serial Devices accessible by user fhem. 
 # I found this kind in official fhem-docker/src/entry.sh . I don't found this as recommandation on other sites
