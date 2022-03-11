@@ -25,6 +25,7 @@ RUN apt update && apt install -y \
   libperl-prereqscanner-notquitelite-perl \
   libtimedate-perl \
   locales \
+  netcat \
   perl \
   subversion \
   wget \
