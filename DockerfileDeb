@@ -9,9 +9,6 @@ LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 ENV \
     TERM=xterm \
     TZ=Europe/Berlin 
-#    LANG=de_DE.UTF-8 \
-#    LANGUAGE=de:en \
-#    LC_ALL=de_DE.UTF-8
 
 ARG PACKAGE_SIZE=small
 
@@ -51,14 +48,11 @@ RUN apt update && apt install -y \
   && rm -rf /var/lib/apt/lists/*
 
 ### ToDo combine the following parts for better building
-## Customizing console and setting Timezone
+## Customizing console
 RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc 
-#    && cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
-#    && echo "Europe/Berlin" > /etc/timezone
 
 ## add user fhem, copy some files from github instead of using docker context
 RUN adduser --gecos "" --ingroup dialout --home /opt/fhem --no-create-home --shell /bin/false --disabled-login fhem \
-    && usermod -a -G tty fhem \
     && cd / \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/functions.sh \
     && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/entry.sh \
