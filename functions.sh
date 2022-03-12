@@ -81,8 +81,11 @@ function StartFHEM {
 	
 	## define telnetPort if it's needed and not in place
 	## todo: integrate test in cmd2FHEM ?
-	if ! nc -z -w 1 localhost 7072 && [ "${FHEM_CTRL_INTERFACE}" != "http" ] ; then 
-	   echo "define telnetPort telnet 7072"|/fhemcl.sh
+	if [ "${FHEM_CTRL_INTERFACE}" != "http" ] ; then 
+	   if ! nc -z -w 1 localhost 7072 ; then 
+	      echo "define telnetPort telnet 7072"|/fhemcl.sh
+	      echo 'telnetPort defined'
+	   fi
         fi
 	
 	## set fhem.pid file if it's not in place
@@ -90,6 +93,7 @@ function StartFHEM {
             then
                echo 'attr global pidfilename ./log/fhem.pid'|cmd2FHEM
                echo '{qx(echo $$ > ./log/fhem.pid)}'|cmd2FHEM
+	       echo 'pidFile defined'
         fi
  	
 	PrintNewLines
