@@ -29,7 +29,7 @@ RUN apt update && apt install -y \
   netcat \
   perl \
   wget \
-  && for lang in ${LANGUAGES}; do sed -e "s/# $lang/$lang/" /etc/locale.gen; done \
+  && for lang in ${LANGUAGES}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen \
   && if [ "${PACKAGE_SIZE}" = "big" ]; then \
     apt install -y --no-install-recommends \
