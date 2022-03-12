@@ -6,7 +6,7 @@
 ## todo: integrate test in cmd2FHEM ?
 function cmd2FHEM { 
   if [ "${FHEM_CTRL_INTERFACE}" = "http" ] ; then 
-     /fhemcl.sh 8083
+     /fhemcl.sh ${FHEM_CTRL_URL}
   else 
      nc -w 1 localhost 7072
   fi
@@ -136,7 +136,7 @@ function InitFHEM {
      if [ "$2" = "tar" ] ; then
         echo "try to init path $(pwd) from $RELEASE_FILE"
         wget -q http://fhem.de/$RELEASE_FILE
-        tar xvf $RELEASE_FILE --strip-components=1             # the first path structure fhem-6.1 is removed during expand
+        tar xvf $RELEASE_FILE --strip-components=1             # the first path structure /fhem-6.1/ is removed during expand
 	rm $RELEASE_FILE
      fi
    else 
