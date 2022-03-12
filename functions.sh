@@ -1,8 +1,9 @@
 #!/bin/bash
-### original from here https://github.com/krannich/dkDockerFHEM/blob/master/fhem/core/start-fhem.sh 
+### inspired from here https://github.com/krannich/dkDockerFHEM/blob/master/fhem/core/start-fhem.sh 
 ###
 
 ### Function to control FHEM ###
+## todo: integrate test in cmd2FHEM ?
 function cmd2FHEM { 
   if [ "${FHEM_CTRL_INTERFACE}" = "http" ] ; then 
      /fhemcl.sh 8083
@@ -78,7 +79,13 @@ function StartFHEM {
         PrintNewLines "Server started"
 	done
 	
-	## set fhem.pid file if is not in place
+	## define telnetPort if it's needed and not in place
+	## todo: integrate test in cmd2FHEM ?
+	if ! nc -z -w 1 localhost 7072 && [ "${FHEM_CTRL_INTERFACE}" != "http" ] ; then 
+	   echo "define telnetPort telnet 7072"|/fhemcl.sh
+        fi
+	
+	## set fhem.pid file if it's not in place
         if [ ! -e ./log/fhem.pid ]
             then
                echo 'attr global pidfilename ./log/fhem.pid'|cmd2FHEM
