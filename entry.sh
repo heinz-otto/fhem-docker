@@ -9,6 +9,7 @@ export LANG="${LANG:-de_DE.UTF-8}"
 export LANGUAGE="${LANGUAGE:-de:en}"
 export LC_ALL="${LC_ALL:-de_DE.UTF-8}"
 export TZ="${TZ:-Europe/Berlin}"
+export FHEM_CTRL_INTERFACE="${FHEM_CTRL_INTERFACE:-'http'}"
 
 # make serial Devices accessible by user fhem. 
 # I found this kind in official fhem-docker/src/entry.sh . I don't found this as recommandation on other sites
