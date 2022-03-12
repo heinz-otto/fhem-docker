@@ -2,22 +2,29 @@
 ### original from here https://github.com/krannich/dkDockerFHEM/blob/master/fhem/core/start-fhem.sh 
 ###
 
+### Function to control FHEM ###
+function cmd2FHEM { 
+  if [ "${FHEM_CTRL_INTERFACE}" = "http" ] ; then 
+     /fhemcl.sh
+  else 
+     nc -w 1 localhost 7072
+  fi
+}
+
 ### Function to start FHEM ###
 function StartFHEM {
-	LOGFILE=/opt/fhem/log/fhem-%Y-%m.log
-	PIDFILE=/opt/fhem/log/fhem.pid
+	LOGFILE=$(pwd)/log/fhem-%Y-%m.log
+	PIDFILE=$(pwd)/log/fhem.pid
 	SLEEPINTERVAL=0.5
 	TIMEOUT="${TIMEOUT:-15}"
-	FHEMPORT='8083'
 
 	echo
 	echo '-------------------------------------------------------------------------------------------------------------------'
-	echo
-	echo "FHEM_VERSION = $FHEM_VERSION"
+	echo "LOGFILE = $LOGFILE"
 	echo "TZ = $TZ"
 	echo "TIMEOUT = $TIMEOUT"
 	echo "ConfigType = $CONFIGTYPE"
-	echo
+	echo "FHEM control Interface is $FHEM_CTRL_INTERFACE"
 	echo '-------------------------------------------------------------------------------------------------------------------'
 	echo
 
@@ -41,7 +48,7 @@ function StartFHEM {
 	    echo
             if PID=$(cat $PIDFILE 2>/dev/null)
             then 
-                echo 'shutdown'|/fhemcl.sh $FHEMPORT
+                echo 'shutdown'|cmd2FHEM
                 echo 'Waiting for FHEM process to terminate before stopping container:'
 		echo
 		until $FOUND; do					## Wait for FHEM to shutdown
@@ -60,7 +67,7 @@ function StartFHEM {
 
 	trap "StopFHEM" 0
 	
-        chown -R fhem: /opt/fhem                                        # set proper rights
+        chown -R fhem: $(pwd)                                        # set proper rights
 	
 	### start FHEM
 	perl fhem.pl "$CONFIGTYPE"
@@ -74,8 +81,8 @@ function StartFHEM {
 	## set fhem.pid file if is not in place
         if [ ! -e ./log/fhem.pid ]
             then
-               echo 'attr global pidfilename ./log/fhem.pid'|/fhemcl.sh $FHEMPORT
-               echo '{qx(echo $$ > ./log/fhem.pid)}'|/fhemcl.sh $FHEMPORT
+               echo 'attr global pidfilename ./log/fhem.pid'|cmd2FHEM
+               echo '{qx(echo $$ > ./log/fhem.pid)}'|cmd2FHEM
         fi
  	
 	PrintNewLines
@@ -88,7 +95,6 @@ function StartFHEM {
 			echo
 			echo "FHEM process terminated, waiting for $COUNTDOWN seconds before stopping container..."
 			while ( [ ! -f $PIDFILE ] || ! kill -0 "$(<"$PIDFILE")" &>/dev/null ) && (( COUNTDOWN > 0 )); do	## FHEM exited unexpectedly
-#				echo "waiting - $COUNTDOWN"
                                 printf "waiting - $COUNTDOWN \r"
 				(( COUNTDOWN-- ))
 				sleep 1
@@ -111,12 +117,11 @@ function StartFHEM {
 ### Function init the workdir with a fresh FHEM version from svn or latest build version from fhem.de  ###
 function InitFHEM {
   ### if the /opt/fhem is empty load a new FHEM from svn or fhem.de
-  RELEASE_FILE=${RELEASE_FILE:-"fhem-6.1.tar.gz"}
   if [ "$3" = "clean" ] ; then
      echo "clean path $(pwd)"
      rm -r *
   fi
-  if [ ! -e /opt/fhem/fhem.pl ] || [ $3=force ] ; then
+  if [ ! -e $(pwd)/fhem.pl ] || [ $3=force ] ; then
      if [ "$2" = "svn" ] ; then
         echo "try to init path $(pwd) from svn"
         svn checkout https://svn.fhem.de/fhem/trunk/fhem .
@@ -128,7 +133,7 @@ function InitFHEM {
 	rm $RELEASE_FILE
      fi
    else 
-     echo "/opt/fhem not empty use init svn|tar force"
+     echo "$(pwd) not empty use init svn|tar force"
   fi
 }
 
