@@ -21,7 +21,7 @@ docker build -t minifhem https://raw.githubusercontent.com/heinz-otto/fhem-docke
 docker build -t minifhem https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/Dockerfile --build-arg PACKAGE_SIZE=big
 ```
 #### Init FHEM Path
-init tar|svn [clean]     # svn needs PACKAGE_SIZE=big
+init tar|svn [clean]                # svn needs PACKAGE_SIZE=big
 ```
 docker run -v "/home/pi/docker/fhem:/opt/fhem" minifhem init tar
 docker run -v "/home/pi/docker/fhem:/opt/fhem" minifhem init tar clean
