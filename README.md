@@ -35,3 +35,23 @@ docker run -v "/home/pi/docker/fhem:/opt/fhem" -p "8083:8083" minifhem start dem
 ```
 docker run -v "/home/pi/docker/fhem:/opt/fhem" -p "8083:8083" -it minifhem sh
 ```
+## Features
+Docker
+- build arguments PACKAGE_SIZE=big, PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
+- support "Status": "healthy" (basic)
+- start with optional command start [demo], init tar|svn [clean|force], any other command will directly executed
+- map serial devices, volumes, ports, use ENV Variables to set timezone, language, configType, control interface
+
+System
+- based on debian:latest
+- timezone easy over TZ configurable
+- en_US and de_DE language preinstalled (more during build process possible)
+- no python at this time (add python3 python3-pi to package list in Dockerfile ?)
+
+FHEM
+- configFile, configDB, demo mode supported
+- start with fresh install, last official release or existing content (fhem path) 
+- automatic configuration during start for pidfile, telnetPort
+- installermodul developermode for pre testing existing fhem.cfg
+- some perl libs wich required for FHEM Modules preinstalled
+- controlinterface over http or telnet port configurable
