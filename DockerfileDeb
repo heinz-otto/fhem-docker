@@ -11,6 +11,7 @@ ENV \
     TZ=Europe/Berlin 
 
 ARG PACKAGE_SIZE=big
+ARG LANGUAGES='en_US.UTF-8 de_DE.UTF-8'
 
 RUN apt update && apt install -y \
   apt-file \
@@ -27,10 +28,8 @@ RUN apt update && apt install -y \
   locales \
   netcat \
   perl \
-  subversion \
   wget \
-  && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-  && sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen \
+  && for lang in ${LANGUAGES}; do sed -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen \
   && if [ "${PACKAGE_SIZE}" = "big" ]; then \
     apt install -y --no-install-recommends \
@@ -44,6 +43,7 @@ RUN apt update && apt install -y \
     libxml-simple-perl \
     libxml-xpath-perl \
     mp3wrap \
+    subversion \
     sendemail \
   ; fi \
   && rm -rf /var/lib/apt/lists/*
