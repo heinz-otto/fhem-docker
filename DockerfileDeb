@@ -34,17 +34,20 @@ RUN apt update && apt install -y \
   && if [ "${PACKAGE_SIZE}" = "big" ]; then \
     apt install -y --no-install-recommends \
     libcrypt-rijndael-perl \
+    libdbd-sqlite3-perl \
     libfile-homedir-perl \
     libhtml-treebuilder-xpath-perl \
     libnet-telnet-perl \
     libsoap-lite-perl \
+    libtext-diff-perl \
     libtext-iconv-perl \
     libwww-perl \
     libxml-simple-perl \
     libxml-xpath-perl \
     mp3wrap \
-    subversion \
     sendemail \
+    sqlite3 \
+    subversion \
   ; fi \
   && rm -rf /var/lib/apt/lists/*
 
