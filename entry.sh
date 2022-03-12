@@ -4,7 +4,7 @@
 
 # set ENV
 export HOME="$(pwd)"
-export CONFIGTYPE=${CONFIGTYPE:-"fhem.cfg"}
+export CONFIGTYPE=${CONFIGTYPE:-"fhem.cfg"}                 # for configDB https://forum.fhem.de/index.php?topic=54055.0
 export LANG="${LANG:-de_DE.UTF-8}" 
 export LANGUAGE="${LANGUAGE:-de:en}"
 export LC_ALL="${LC_ALL:-de_DE.UTF-8}"
