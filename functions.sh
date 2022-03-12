@@ -84,7 +84,7 @@ function StartFHEM {
 	if [ "${FHEM_CTRL_INTERFACE}" != "http" ] ; then 
 	   if ! nc -z -w 1 localhost 7072 ; then 
 	      echo "define telnetPort telnet 7072"|/fhemcl.sh
-	      echo 'telnetPort defined'
+	      echo "  control Interface is not http - telnetPort defined"
 	   fi
         fi
 	
@@ -93,7 +93,7 @@ function StartFHEM {
             then
                echo 'attr global pidfilename ./log/fhem.pid'|cmd2FHEM
                echo '{qx(echo $$ > ./log/fhem.pid)}'|cmd2FHEM
-	       echo 'pidFile defined'
+	       echo '   pidFile is missing - pidfilename defined'
         fi
  	
 	PrintNewLines
