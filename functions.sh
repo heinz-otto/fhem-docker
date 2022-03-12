@@ -8,7 +8,6 @@ function StartFHEM {
 	PIDFILE=/opt/fhem/log/fhem.pid
 	SLEEPINTERVAL=0.5
 	TIMEOUT="${TIMEOUT:-15}"
-	CONFIGTYPE=${CONFIGTYPE:-"fhem.cfg"}
 	FHEMPORT='8083'
 
 	echo
