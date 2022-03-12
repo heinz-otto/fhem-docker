@@ -25,7 +25,7 @@ function StartFHEM {
 	echo "TZ = $TZ"
 	echo "TIMEOUT = $TIMEOUT"
 	echo "ConfigType = $CONFIGTYPE"
-	echo "FHEM control Interface is $FHEM_CTRL_INTERFACE"
+	echo "FHEM control Interface is ${FHEM_CTRL_INTERFACE}"
 	echo '-------------------------------------------------------------------------------------------------------------------'
 	echo
 
