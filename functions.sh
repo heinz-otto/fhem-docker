@@ -5,7 +5,7 @@
 ### Function to control FHEM ###
 function cmd2FHEM { 
   if [ "${FHEM_CTRL_INTERFACE}" = "http" ] ; then 
-     /fhemcl.sh
+     /fhemcl.sh 8083
   else 
      nc -w 1 localhost 7072
   fi
