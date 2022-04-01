@@ -56,7 +56,7 @@ RUN apt update && apt install -y \
       apt install -y \
       libsox-fmt-all \
       pulseaudio \
-      sox 
+      sox \
   ; fi \ 
   && rm -rf /var/lib/apt/lists/*
 
