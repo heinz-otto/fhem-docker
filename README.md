@@ -37,7 +37,7 @@ docker run -v "/home/pi/docker/fhem:/opt/fhem" -p "8083:8083" -it minifhem sh
 ```
 ## Features
 Docker
-- build arguments PACKAGE_SIZE=big, PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
+- build arguments PACKAGE_SIZE=full|full_audio, PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
 - support "Status": "healthy" (basic)
 - start with optional command start [demo], init tar|svn [clean|force], any other command will directly executed
 - map serial devices, volumes, ports, use ENV Variables to set timezone, language, configType, control interface
