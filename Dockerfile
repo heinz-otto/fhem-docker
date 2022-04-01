@@ -20,7 +20,7 @@ RUN apk add --no-cache --update \
     sed \
     tzdata \
     wget \
-    && if [ "${PACKAGE_SIZE}" = "big" ]; then \
+    && if [ "${PACKAGE_SIZE}" = "full" ]; then \
          apk add --no-cache --update \
          busybox-extras \
          perl-dbd-mysql \
