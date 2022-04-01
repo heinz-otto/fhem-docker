@@ -11,7 +11,7 @@ ENV \
     TZ=Europe/Berlin 
 
 # PACKAGE_SIZE could be: full, full_audio ...
-ARG PACKAGE_SIZE=big
+ARG PACKAGE_SIZE=full
 ARG PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
 
 # ToDo Eventuell das Setup noch umstellen
@@ -34,7 +34,7 @@ RUN apt update && apt install -y \
   wget \
   && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen \
-  && if [ "${PACKAGE_SIZE:0:4}" = "full" ]; then \
+  && if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
     apt install -y --no-install-recommends \
     libcrypt-rijndael-perl \
     libdbd-sqlite3-perl \
