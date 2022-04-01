@@ -51,7 +51,7 @@ RUN apt update && apt install -y \
     sendemail \
     sqlite3 \
     subversion \
-    ; if $([ "${PACKAGE_SIZE}" = "full_audio" ]);then \
+    ; if [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
       apt install -y \
       pulseaudio \
   ;fi ;fi \
