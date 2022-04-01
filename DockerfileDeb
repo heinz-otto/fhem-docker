@@ -54,7 +54,9 @@ RUN apt update && apt install -y \
   ; fi \
   && if [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
       apt install -y \
+      libsox-fmt-all \
       pulseaudio \
+      sox 
   ; fi \ 
   && rm -rf /var/lib/apt/lists/*
 
