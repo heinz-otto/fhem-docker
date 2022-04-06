@@ -36,6 +36,7 @@ RUN apt update && apt install -y \
   && locale-gen \
   && if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
     apt install -y --no-install-recommends \
+    iputils-ping \
     libcrypt-rijndael-perl \
     libdbd-sqlite3-perl \
     libfile-homedir-perl \
