@@ -1,6 +1,7 @@
 # build container with Dockerfile from github
 # https://github.com/heinz-otto/fhem-docker
 # PACKAGE_SIZE could be: full, full_audio
+# environment see https://github.com/heinz-otto/fhem-docker/blob/main/entry.sh
 
 services:
   fhem:
@@ -9,8 +10,6 @@ services:
       args: 
         - PACKAGE_SIZE=full
     
-    container_name: minifhem
-    hostname: fhem
     restart: always
     ports:
       - "8083:8083"
