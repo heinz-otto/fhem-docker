@@ -36,6 +36,19 @@ docker run -v "/home/pi/docker/fhem:/opt/fhem" -p "8083:8083" minifhem start dem
 ```
 docker run -v "/home/pi/docker/fhem:/opt/fhem" -p "8083:8083" -it minifhem sh
 ```
+#### Work with docker compose
+```
+wget -O fhemcl.sh https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/docker-compose.yml
+```
+Build the Image
+```
+docker compose build
+```
+Init the fhem directory
+```
+docker compose run fhem init svn clean
+docker compose up
+```
 ## Features
 Docker
 - build arguments PACKAGE_SIZE=small|full|full_audio, PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
