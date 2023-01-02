@@ -40,7 +40,7 @@ Docker
 - build arguments PACKAGE_SIZE=small|full|full_audio, PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
 - support "Status": "healthy" (basic)
 - start with optional command start [demo], init tar|svn [clean|force], any other command will directly executed
-  - tar will initialize the path with the latest official tar package from fhem.de
+  - tar will initialize the path with the official tar package from fhem.de (configurable with environment RELEASE_FILE)
   - svn will do the same with the actual svn repository
   - clean will delete the path first, 
   - force will overwrite the existing path
