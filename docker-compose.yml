@@ -1,4 +1,4 @@
-# Test for build container from github
+# build container with Dockerfile from github
 # https://github.com/heinz-otto/fhem-docker
 services:
   fhem:
