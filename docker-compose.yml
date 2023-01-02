@@ -1,5 +1,7 @@
 # build container with Dockerfile from github
 # https://github.com/heinz-otto/fhem-docker
+# PACKAGE_SIZE could be: full, full_audio
+
 services:
   fhem:
     build:
