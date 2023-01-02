@@ -144,7 +144,7 @@ function InitFHEM {
 	rm $RELEASE_FILE
      fi
    else 
-     echo "$(pwd) not empty use init svn|tar force"
+     echo "$(pwd) not empty, use: init svn|tar clean"
   fi
 }
 
