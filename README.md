@@ -46,7 +46,8 @@ docker compose build
 ```
 Init the fhem directory
 ```
-docker compose run minifhem init svn
+docker compose run fhem init svn
+docker compose run fhem start demo
 docker compose up
 ```
 ## Features
