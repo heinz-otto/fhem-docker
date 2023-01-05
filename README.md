@@ -38,7 +38,7 @@ docker run -v "/home/pi/docker/fhem:/opt/fhem" -p "8083:8083" -it minifhem sh
 ```
 #### Work with docker compose
 ```
-wget -O fhemcl.sh https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/docker-compose.yml
+wget -O docker-compose.yml https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/docker-compose.yml
 ```
 Build the Image
 ```
