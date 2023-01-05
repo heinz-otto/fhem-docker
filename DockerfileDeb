@@ -1,7 +1,7 @@
 ###########################################################
 ## Testing FHEM with debian
 ###########################################################
-FROM debian:10
+FROM debian:latest
 
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 
