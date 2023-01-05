@@ -2,7 +2,7 @@
 ## Testing FHEM with a small as possible Alpine Linux
 ## inspired from https://github.com/krannich/dkDockerFHEM/blob/master/fhem/Dockerfile
 ###########################################################
-FROM alpine:latest
+FROM alpine:3.12
 
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 
