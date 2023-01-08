@@ -3,8 +3,7 @@
 ###########################################################
 ARG BASE_IMAGE="debian"
 ARG BASE_IMAGE_TAG="latest"
-# PACKAGE_SIZE could be: small, full (default), full_audio ...
-ARG PACKAGE_SIZE=full
+ARG PACKAGE_SIZE=full                     # could be: small, full (default), full_audio 
 ARG PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
 
 FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
