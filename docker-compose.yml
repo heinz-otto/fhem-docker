@@ -5,9 +5,13 @@
 
 services:
   fhem:
+    image: ownfhem/debian:latest
     build:
       context: https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/DockerfileDeb
       args: 
+        - BASE_IMAGE="debian"
+        - BASE_IMAGE_TAG="latest"
+        - PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
         - PACKAGE_SIZE=full
     
     restart: always
