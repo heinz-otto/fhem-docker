@@ -20,6 +20,7 @@ ENV FHEM_WEB_PORT=8083\
 
 # ToDo Eventuell das Setup noch umstellen
 # sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends  pack1 pack2 usw >/dev/null
+RUN echo ${PACKAGE_LANG} && pause
 RUN apt-get update && apt-get install -y \
   apt-file \
   apt-utils \
@@ -35,7 +36,7 @@ RUN apt-get update && apt-get install -y \
   netcat-openbsd \
   perl \
   wget
-RUN echo 'willi' && echo "${PACKAGE_LANG}" && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
+RUN echo "Sprachen: ${PACKAGE_LANG}" && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen
 RUN if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
     apt-get install -y --no-install-recommends \
