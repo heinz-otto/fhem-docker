@@ -2,13 +2,14 @@
 ## Testing FHEM with debian
 ###########################################################
 ARG BASE_IMAGE="debian"
-# available tags https://hub.docker.com/_/debian
-ARG BASE_IMAGE_TAG="latest"
+ARG BASE_IMAGE_TAG="latest"    # available tags https://hub.docker.com/_/debian
+
+FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
+
 # could be: small, full (default), full_audio 
 ARG PACKAGE_SIZE=full
 ARG PACKAGE_LANG="en_US.UTF-8 de_DE.UTF-8"
 
-FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
 
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 
