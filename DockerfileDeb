@@ -2,8 +2,10 @@
 ## Testing FHEM with debian
 ###########################################################
 ARG BASE_IMAGE="debian"
-ARG BASE_IMAGE_TAG="latest"               # available tags https://hub.docker.com/_/debian
-ARG PACKAGE_SIZE=full                     # could be: small, full (default), full_audio 
+# available tags https://hub.docker.com/_/debian
+ARG BASE_IMAGE_TAG="latest"
+# could be: small, full (default), full_audio 
+ARG PACKAGE_SIZE=full
 ARG PACKAGE_LANG="en_US.UTF-8 de_DE.UTF-8"
 
 FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
@@ -33,7 +35,7 @@ RUN apt-get update && apt-get install -y \
   netcat-openbsd \
   perl \
   wget
-RUN echo 'willi' && echo "${PACKAGE_LANG}" && for lang in "${PACKAGE_LANG}"; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
+RUN echo 'willi' && echo "${PACKAGE_LANG}" && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen
 RUN if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
     apt-get install -y --no-install-recommends \
