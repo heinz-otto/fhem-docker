@@ -68,7 +68,7 @@ function StartFHEM {
 
 	trap "StopFHEM" 0
 	
-        chown -R fhem: $(pwd)                                        # set proper rights
+        # chown -R fhem: $(pwd)                                        # set proper rights
 	
 	### start FHEM
 	perl fhem.pl "$CONFIGTYPE"
