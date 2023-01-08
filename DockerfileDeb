@@ -6,7 +6,7 @@ FROM debian:latest
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 
 # locale setting see https://wiki.debian.org/Locale
-ENV \
+ENV FHEM_WEB_PORT=8083\
     TERM=xterm \
     TZ=Europe/Berlin 
 
@@ -73,11 +73,14 @@ RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc \
 
 ## Starting container, EXPOSE is more Doku :-)
 
-EXPOSE 8083
+EXPOSE ${FHEM_WEB_PORT}
 
+# e.g. official fhem
 ## HEALTHCHECK --interval=20s --timeout=10s --start-period=60s --retries=5 CMD /health-check.sh
-# first basic version for testing
-HEALTHCHECK CMD nc -w 1 localhost 8083 || exit 1
+# e.g. deconz
+## HEALTHCHECK --interval=10s --timeout=20s --retries=5 CMD curl -I 127.0.0.1:${DECONZ_WEB_PORT} || exit 1
+# first basic version for testing defaults 30 30 0 3 https://docs.docker.com/engine/reference/builder/#healthcheck
+HEALTHCHECK CMD nc -w 1 localhost ${FHEM_WEB_PORT} || exit 1
 
 WORKDIR "/opt/fhem"
 ENTRYPOINT ["/entry.sh"]
