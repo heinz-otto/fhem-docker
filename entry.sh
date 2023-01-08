@@ -20,6 +20,7 @@ find /dev/ -name "tty[A|S|U]*" -exec chown fhem: {} \;
 # run internal cmd or execute the code from commandline 
 if [ "$1" = 'init' ]; then
    InitFHEM $@
+   chown -R fhem: $(pwd)              # set proper rights
    exit 0
 fi
 if [ "$1" = 'start' ]; then
