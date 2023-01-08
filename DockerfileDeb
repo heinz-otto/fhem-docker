@@ -1,7 +1,13 @@
 ###########################################################
 ## Testing FHEM with debian
 ###########################################################
-FROM debian:latest
+ARG BASE_IMAGE="debian"
+ARG BASE_IMAGE_TAG="latest"
+# PACKAGE_SIZE could be: small, full (default), full_audio ...
+ARG PACKAGE_SIZE=full
+ARG PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
+
+FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
 
 LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 
@@ -9,10 +15,6 @@ LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
 ENV FHEM_WEB_PORT=8083\
     TERM=xterm \
     TZ=Europe/Berlin 
-
-# PACKAGE_SIZE could be: full, full_audio ...
-ARG PACKAGE_SIZE=full
-ARG PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
 
 # ToDo Eventuell das Setup noch umstellen
 # sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends  pack1 pack2 usw >/dev/null
