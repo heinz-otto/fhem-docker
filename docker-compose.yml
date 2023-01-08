@@ -1,22 +1,23 @@
-# build container with Dockerfile from github
 # https://github.com/heinz-otto/fhem-docker
 # PACKAGE_SIZE could be: full, full_audio
 # environment see https://github.com/heinz-otto/fhem-docker/blob/main/entry.sh
 
 services:
   fhem:
-    image: ownfhem/debian:latest
     build:
+      tags:
+        - ownfhem/debian:latest
+        - dockerbuild-fhem:latest
       context: https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/DockerfileDeb
-      args: 
+      args:
         - BASE_IMAGE="debian"
         - BASE_IMAGE_TAG="latest"
         - PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
-        - PACKAGE_SIZE=full
-    
+        - PACKAGE_SIZE="full"
+
     restart: always
     ports:
-      - "8083:8083"
+      - "8084:8083"
     environment:
       - TZ=Europe/Berlin
       - LC_ALL
