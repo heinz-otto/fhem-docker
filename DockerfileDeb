@@ -31,10 +31,10 @@ RUN apt-get update && apt-get install -y \
   locales \
   netcat-openbsd \
   perl \
-  wget \
-  && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
-  && locale-gen \
-  && if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
+  wget
+RUN for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
+  && locale-gen
+RUN if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
     apt-get install -y --no-install-recommends \
     iputils-ping \
     libcrypt-rijndael-perl \
