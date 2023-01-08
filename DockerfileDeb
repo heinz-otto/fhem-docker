@@ -21,7 +21,6 @@ ENV FHEM_WEB_PORT=8083\
 
 # ToDo Eventuell das Setup noch umstellen
 # sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends  pack1 pack2 usw >/dev/null
-RUN echo ${FHEM_WEB_PORT}:${BASE_IMAGE_TAG} && pause
 RUN apt-get update && apt-get install -y \
   apt-file \
   apt-utils \
