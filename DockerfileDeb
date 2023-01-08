@@ -31,41 +31,38 @@ RUN apt-get update && apt-get install -y \
   locales \
   netcat-openbsd \
   perl \
-  wget
-RUN echo "Sprachen: ${PACKAGE_LANG}" && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
-  && locale-gen
-RUN if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
-    apt-get install -y --no-install-recommends \
-    iputils-ping \
-    libcrypt-rijndael-perl \
-    libdbd-sqlite3-perl \
-    libfile-homedir-perl \
-    libhtml-treebuilder-xpath-perl \
-    libnet-telnet-perl \
-    libsoap-lite-perl \
-    libtext-diff-perl \
-    libtext-iconv-perl \
-    libwww-perl \
-    libxml-simple-perl \
-    libxml-xpath-perl \
-    mp3wrap \
-    sendemail \
-    sqlite3 \
-    subversion ; fi \
-  && if [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
-      apt-get install -y \
-      libsox-fmt-all \
-      pulseaudio \
-      sox ; fi \ 
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
+  wget && \
+  if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
+     apt-get install -y --no-install-recommends \
+     iputils-ping \
+     libcrypt-rijndael-perl \
+     libdbd-sqlite3-perl \
+     libfile-homedir-perl \
+     libhtml-treebuilder-xpath-perl \
+     libnet-telnet-perl \
+     libsoap-lite-perl \
+     libtext-diff-perl \
+     libtext-iconv-perl \
+     libwww-perl \
+     libxml-simple-perl \
+     libxml-xpath-perl \
+     mp3wrap \
+     sendemail \
+     sqlite3 \
+     subversion ; fi && \
+     if [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
+        apt-get install -y \
+        libsox-fmt-all \
+        pulseaudio \
+        sox ; fi && \
+     if [ "${BASE_IMAGE_TAG}" = "latest" ] ; then \
+        apt-get install -y \
+        libperl-prereqscanner-notquitelite-perl ; fi && \
+     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Workaround for Buster 
-RUN echo ${BASE_IMAGE_TAG} && if [ "${BASE_IMAGE_TAG}" = "latest" ] ; then \
-    echo 'drin' && apt-get update && \
-    apt-get install -y \
-        libperl-prereqscanner-notquitelite-perl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* ; fi
+RUN echo "Sprachen: ${PACKAGE_LANG}" && \
+    for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done && \
+    locale-gen
 
 VOLUME [ "/opt/fhem" ]
 
