@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y \
   netcat-openbsd \
   perl \
   wget
-RUN echo 'willi' && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
+RUN echo 'willi' && echo ${PACKAGE_LANG} && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen
 RUN if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
     apt-get install -y --no-install-recommends \
