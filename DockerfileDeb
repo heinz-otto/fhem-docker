@@ -17,7 +17,7 @@ ENV FHEM_WEB_PORT=8083\
 
 # ToDo Eventuell das Setup noch umstellen
 # sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends  pack1 pack2 usw >/dev/null
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
   apt-file \
   apt-utils \
   ca-certificates \
@@ -34,11 +34,8 @@ RUN apt update && apt install -y \
   wget \
   && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen \
-    && if [ "${BASE_IMAGE_TAG}" = "latest" ] ; then \
-    apt install -y libperl-prereqscanner-notquitelite-perl \
-  ; fi \
   && if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
-    apt install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
     iputils-ping \
     libcrypt-rijndael-perl \
     libdbd-sqlite3-perl \
@@ -54,15 +51,21 @@ RUN apt update && apt install -y \
     mp3wrap \
     sendemail \
     sqlite3 \
-    subversion \
-  ; fi \
+    subversion ; fi \
   && if [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
-      apt install -y \
+      apt-get install -y \
       libsox-fmt-all \
       pulseaudio \
-      sox \
-  ; fi \ 
-  && rm -rf /var/lib/apt/lists/*
+      sox ; fi \ 
+  && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Workaround for Buster 
+RUN if [ "${BASE_IMAGE_TAG}" = "latest" ] ; then \
+    apt-get update && \
+    apt-get install -y \
+        libperl-prereqscanner-notquitelite-perl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* ; fi
 
 VOLUME [ "/opt/fhem" ]
 
