@@ -24,17 +24,17 @@ docker build -t ownfhem/debian:latest https://raw.githubusercontent.com/heinz-ot
 #### Init FHEM Path
 init [tar|svn [clean|force]]                # svn needs PACKAGE_SIZE=full
 ```
-docker run -v "/home/$USER/docker/fhem:/opt/fhem" minifhem init tar
-docker run -v "/home/$USER/docker/fhem:/opt/fhem" minifhem init tar clean
+docker run -v "/home/$USER/docker/fhem:/opt/fhem" ownfhem/debian:latest init tar
+docker run -v "/home/$USER/docker/fhem:/opt/fhem" ownfhem/debian:latest init tar clean
 ```
 #### Start FHEM or FHEM demo
 ```
-docker run -v "/home/$USER/docker/fhem:/opt/fhem" -p "8083:8083" minifhem
-docker run -v "/home/$USER/docker/fhem:/opt/fhem" -p "8083:8083" minifhem start demo
+docker run -v "/home/$USER/docker/fhem:/opt/fhem" -p "8083:8083" ownfhem/debian:latest
+docker run -v "/home/$USER/docker/fhem:/opt/fhem" -p "8083:8083" ownfhem/debian:latest start demo
 ```
 #### Start interactive Shell
 ```
-docker run -v "/home/$USER/docker/fhem:/opt/fhem" -p "8083:8083" -it minifhem sh
+docker run -v "/home/$USER/docker/fhem:/opt/fhem" -p "8083:8083" -it ownfhem/debian:latest sh
 ```
 #### Work with docker compose
 ```
