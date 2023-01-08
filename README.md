@@ -17,12 +17,12 @@ There are two Versions:
 
 #### Build example
 ```
-docker build -t minifhem https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/Dockerfile
-docker build -t minifhem https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/DockerfileDeb
-docker build -t minifhem https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/Dockerfile --build-arg PACKAGE_SIZE=full
+docker build -t ownfhem/alpine:latest https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/Dockerfile
+docker build -t ownfhem/alpine:latest https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/Dockerfile --build-arg PACKAGE_SIZE=full
+docker build -t ownfhem/debian:latest https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/DockerfileDeb
 ```
 #### Init FHEM Path
-init tar|svn [clean|force]                # svn needs PACKAGE_SIZE=full
+init [tar|svn [clean|force]]                # svn needs PACKAGE_SIZE=full
 ```
 docker run -v "/home/$USER/docker/fhem:/opt/fhem" minifhem init tar
 docker run -v "/home/$USER/docker/fhem:/opt/fhem" minifhem init tar clean
