@@ -2,7 +2,7 @@
 ## Testing FHEM with debian
 ###########################################################
 ARG BASE_IMAGE="debian"
-ARG BASE_IMAGE_TAG="latest"
+ARG BASE_IMAGE_TAG="latest"               # available tags https://hub.docker.com/_/debian
 ARG PACKAGE_SIZE=full                     # could be: small, full (default), full_audio 
 ARG PACKAGE_LANG='en_US.UTF-8 de_DE.UTF-8'
 
