@@ -27,7 +27,6 @@ RUN apt update && apt install -y \
   libimage-librsvg-perl \
   libio-socket-ssl-perl \
   libjson-perl \
-  libperl-prereqscanner-notquitelite-perl \
   libtimedate-perl \
   locales \
   netcat-openbsd \
@@ -35,6 +34,9 @@ RUN apt update && apt install -y \
   wget \
   && for lang in ${PACKAGE_LANG}; do sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done \
   && locale-gen \
+    && if [ "${BASE_IMAGE_TAG}" = "latest" ] ; then \
+    apt install -y libperl-prereqscanner-notquitelite-perl \
+  ; fi \
   && if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
     apt install -y --no-install-recommends \
     iputils-ping \
