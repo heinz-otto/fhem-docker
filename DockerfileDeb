@@ -47,6 +47,7 @@ RUN apt-get update && apt-get install -y \
      libxml-simple-perl \
      libxml-xpath-perl \
      mp3wrap \
+     openssh-client \
      sendemail \
      sqlite3 \
      subversion ; fi && \
