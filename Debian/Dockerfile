@@ -1,0 +1,94 @@
+###########################################################
+## Testing FHEM with debian
+###########################################################
+ARG BASE_IMAGE="debian"
+ARG BASE_IMAGE_TAG="latest"    # available tags https://hub.docker.com/_/debian
+
+FROM ${BASE_IMAGE}:${BASE_IMAGE_TAG}
+
+ARG BASE_IMAGE_TAG="latest"    # must be in every FROM section
+ARG PACKAGE_SIZE=full          # could be: small, full (default), full_audio 
+ARG PACKAGE_LANG="en_US.UTF-8 de_DE.UTF-8"
+
+LABEL org.opencontainers.image.authors="heinz-otto@klas.de"
+
+ENV FHEM_WEB_PORT=8083\
+    TERM=xterm \
+    TZ=Europe/Berlin \
+    DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+  apt-file \
+  apt-utils \
+  ca-certificates \
+  gnupg \
+  libcpanel-json-xs-perl \
+  libdevice-serialport-perl \
+  libimage-librsvg-perl \
+  libio-socket-ssl-perl \
+  libjson-perl \
+  libtimedate-perl \
+  locales \
+  netcat-openbsd \
+  perl \
+  wget && \
+  if [ "${PACKAGE_SIZE}" = "full" ] || [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
+     apt-get install -y --no-install-recommends \
+     iputils-ping \
+     libcrypt-rijndael-perl \
+     libdbd-sqlite3-perl \
+     libfile-homedir-perl \
+     libhtml-treebuilder-xpath-perl \
+     libnet-telnet-perl \
+     libsoap-lite-perl \
+     libtext-diff-perl \
+     libtext-iconv-perl \
+     libwww-perl \
+     libxml-simple-perl \
+     libxml-xpath-perl \
+     mp3wrap \
+     openssh-client \
+     sendemail \
+     sqlite3 \
+     subversion ; fi && \
+     if [ "${PACKAGE_SIZE}" = "full_audio" ]; then \
+        apt-get install -y \
+        libsox-fmt-all \
+        pulseaudio \
+        sox ; fi && \
+     if [ "${BASE_IMAGE_TAG}" = "latest" ] ; then \
+        apt-get install -y \
+        libperl-prereqscanner-notquitelite-perl ; fi && \
+     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN for lang in ${PACKAGE_LANG}; do \
+        sed -i -e "s/# $lang/$lang/" /etc/locale.gen; done && \
+    locale-gen
+
+VOLUME [ "/opt/fhem" ]
+
+## Customizing console
+## add user fhem, copy some files from github instead of using docker context
+RUN echo "alias ll='ls -lah --color=auto'" >> /root/.bashrc \
+    && adduser --gecos "" --ingroup dialout --home /opt/fhem --no-create-home --shell /bin/false --disabled-login fhem \
+    && cd / \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/functions.sh \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhem-docker/main/entry.sh \
+    && wget -q https://raw.githubusercontent.com/heinz-otto/fhemcl/master/fhemcl.sh \
+    && chmod +x /*.sh
+
+## Starting container, EXPOSE is more Doku :-)
+
+EXPOSE ${FHEM_WEB_PORT}
+
+# e.g. official fhem
+## HEALTHCHECK --interval=20s --timeout=10s --start-period=60s --retries=5 CMD /health-check.sh
+# e.g. deconz
+## HEALTHCHECK --interval=10s --timeout=20s --retries=5 CMD curl -I 127.0.0.1:${DECONZ_WEB_PORT} || exit 1
+# first basic version for testing defaults 30 30 0 3 https://docs.docker.com/engine/reference/builder/#healthcheck
+HEALTHCHECK CMD nc -w 1 localhost ${FHEM_WEB_PORT} || exit 1
+
+WORKDIR "/opt/fhem"
+ENTRYPOINT ["/entry.sh"]
+# start is default and can be overwritten per commandline
+CMD [ "start" ]
